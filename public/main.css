@@ -1,0 +1,95 @@
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+h6 {
+  margin-right: 50px;
+}
+
+.Top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  position: relative;
+  z-index: 10;
+  height: 100px;
+}
+
+.Container {
+  display: flex;
+  overflow: hidden;
+  height: 100vh;
+  margin-top: -100px;
+  padding-top: 100px;
+  position: relative;
+  width: 100%;
+  backface-visibility: hidden;
+  will-change: overflow;
+}
+
+.Left,
+.Middle,
+.Right {
+  overflow: auto;
+  height: auto;
+  padding: .5rem;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  border: 2px solid #C0C0C0;
+}
+
+.Left {
+  width: 12.5rem;
+}
+
+.Middle {
+  flex: 1;
+}
+
+.Right {
+  width: 12.5rem;
+}
+
+.RoomBtn {
+  width: 130px;
+  height: 50px;
+  background-color: #00ffff;
+  border: 2px solid #000000;
+  margin: 12px 12px;
+  padding: 12px 12px;
+  cursor: pointer;
+}
+
+.TextBox {
+  width: 350px;
+  height: 25px;
+}
+
+.MsgSendBtn {
+  width: 130px;
+  height: 25px;
+  background-color: #00ffff;
+  border: 2px solid #000000;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.userName {
+  cursor: pointer;
+}

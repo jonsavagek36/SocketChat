@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SuperAwesomeChat</title>
+    <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+    <div class="Top">
+      <h6>SuperAwesomeChat</h6>
+      <input type="text" id="msgBox" class="TextBox" />
+      <div class="MsgSendBtn" id="msgBtn">
+        Send Msg
+      </div>
+    </div>
+    <div class="Container">
+      <div class="Left" id="userList"></div>
+      <div class="Middle" id="messages"></div>
+      <div class="Right" id="rooms">
+      </div>
+    </div>
+    <script src="../socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+  </body>
+</html>
