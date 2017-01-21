@@ -15,7 +15,15 @@
     <div class="Container">
       <div class="Left" id="userList"></div>
       <div class="Middle" id="messages"></div>
-      <div class="Right" id="rooms">
+      <div class="Right" id="dmSidebar">
+        <form>
+          <h7>DM Messaging</h7><br />
+          Target Name:<br />
+          <input type="text" class="TextBox" id="dmTarget" /><br /><br />
+          Message:<br />
+          <input type="text" class="TextBox" id="dmText" /><br /><br />
+          <input type="submit" class="MsgSendBtn" id="dmBtn" />
+        </form>
       </div>
     </div>
     <script src="../socket.io/socket.io.js"></script>

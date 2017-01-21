@@ -10,5 +10,4 @@ let io = require('socket.io')(http);
 
 io.sockets.on('connection', function(socket) {
   chat.initChat(io, socket);
-
 });

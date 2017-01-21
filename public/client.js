@@ -13,8 +13,9 @@
       IO.socket.on('connected', IO.onConnected);
       IO.socket.on('refreshUsers', IO.refreshList);
       IO.socket.on('declareNewUser', IO.newUserJoins);
+      IO.socket.on('userLeftChat', IO.userLeaves);
       IO.socket.on('addMsg', IO.postMsg);
-      IO.socket.on('getDm', IO.receiveDm);
+      IO.socket.on('sendingDm', IO.receiveDm);
     },
 
     onConnected: function() {
@@ -24,18 +25,14 @@
 
     refreshList: function(data) {
       App.userList.innerHTML = '';
-      App.allUsers = [];
       data.users.forEach((user) => {
         App.users.push(user);
         let node = document.createElement('div');
         node.setAttribute('class', 'userName');
-        node.setAttribute('id', user.id);
+        node.id = user.id;
         let textnode = document.createTextNode(user.name);
         node.appendChild(textnode);
-        // node.addEventListener('click', App.sendDm(user.id));
         App.userList.appendChild(node);
-
-        // `<div class="userName" id="${user.id}">${user.name}</div>`
       });
     },
 
@@ -43,12 +40,16 @@
       App.messages.innerHTML += `${data.name} has joined the chat.<br />`;
     },
 
+    userLeaves: function(data) {
+      App.messages.innerHTML += `${data.user} left the chat.<br />`;
+    },
+
     postMsg: function(data) {
       App.messages.innerHTML += `${data.name}: ${data.msg}<br />`;
     },
 
-    receiveDm: function(data) {
-      window.alert(`${data.sender}: ${data.msg}`);
+    receiveDm: function(dm) {
+      window.alert(`${dm.sender}: ${dm.msg}`);
     }
 
   }
@@ -62,7 +63,7 @@
     init: function() {
       App.cacheElements();
       App.bindEvents();
-      App.myName = window.prompt('SCREEN NAME: ');
+      App.myName = App.getName();
       IO.socket.emit('setname', { name: App.myName, socketId: App.mySocketId, id: App.numUsers });
     },
 
@@ -72,11 +73,23 @@
       App.msgBtn = document.getElementById('msgBtn');
       App.userList = document.getElementById('userList');
       App.messages = document.getElementById('messages');
-      App.rooms = document.getElementById('rooms');
+      App.dmSidebar = document.getElementById('dmSidebar');
+      App.dmTarget = document.getElementById('dmTarget');
+      App.dmText = document.getElementById('dmText');
+      App.dmBtn = document.getElementById('dmBtn');
     },
 
     bindEvents: function() {
       App.msgBtn.addEventListener('click', App.sendMsgClick);
+      App.dmBtn.addEventListener('click', App.sendDm);
+    },
+
+    getName: function() {
+      let name;
+      while (name == '' || name == undefined) {
+        name = window.prompt('SCREEN NAME: ');
+      }
+      return name;
     },
 
     sendMsgClick: function() {
@@ -88,17 +101,22 @@
         IO.socket.emit('userSendsMsg', data);
         App.msgBox.value = '';
       } else {
-        window.alert('Sean and Nick are clowns.');
+        window.alert('Absolutely not.');
       }
     },
 
-    sendDm: function(id) {
-      let data = {
-        sender: App.myName,
-        receiverId: id,
-        dm: window.prompt('DM: ')
-      };
-      IO.socket.emit('sendDm', data);
+    sendDm: function(event) {
+      event.preventDefault();
+      if (App.dmTarget.value != '' && App.dmText.value != '') {
+        let dm = {
+          sender: App.myName,
+          receiver: App.dmTarget.value,
+          msg: App.dmText.value
+        };
+        IO.socket.emit('sendDm', dm);
+      }
+      App.dmTarget.value = '';
+      App.dmText.value = '';
     }
 
   }

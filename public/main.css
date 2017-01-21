@@ -20,6 +20,10 @@ h6 {
   margin-right: 50px;
 }
 
+form {
+  align-items: center;
+}
+
 .Top {
   display: flex;
   align-items: center;
@@ -51,7 +55,7 @@ h6 {
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
   border: 2px solid #C0C0C0;
-}
+} 
 
 .Left {
   width: 12.5rem;
@@ -78,6 +82,7 @@ h6 {
 .TextBox {
   width: 350px;
   height: 25px;
+  padding: 10px 10px;
 }
 
 .MsgSendBtn {
